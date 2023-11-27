@@ -12,7 +12,8 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-require('settings.init')
-require('keymaps.init')
-require('plugins.init')
+require("settings")
+require("keymaps")
+require("plugins")
+require("lang-specific")
 -- require('lsp')

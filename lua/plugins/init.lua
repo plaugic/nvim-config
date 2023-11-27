@@ -15,6 +15,7 @@ require("lazy").setup(
         "tpope/vim-rhubarb",
         -- Detect tabstop and shiftwidth automatically
         "tpope/vim-sleuth",
+        "rcarriga/nvim-notify",
         -- NOTE: This is where your plugins related to LSP can be installed.
         -- The configuration is done below. Search for lspconfig to find it below.
         {
@@ -180,9 +181,9 @@ require("lazy").setup(
             },
             config = function()
                 require("nvim-tree").setup {}
-                vim.keymap.set("n", "tt", "NvimTreeToggle", {})
-                vim.keymap.set("n", "tc", "NvimTreeClose", {})
-                vim.keymap.set("n", "to", "NvimTreeOpen", {})
+                vim.keymap.set("n", "tt", ":NvimTreeToggle<CR>", {})
+                vim.keymap.set("n", "tc", ":NvimTreeClose<CR>", {})
+                vim.keymap.set("n", "to", ":NvimTreeOpen<CR>", {})
             end
         },
         -- "gc" to comment visual regions/lines
@@ -290,7 +291,7 @@ require("lazy").setup(
             opts = {
                 vim.keymap.set(
                     "n",
-                    "t]",
+                    "<leader>t]",
                     function()
                         require("todo-comments").jump_next()
                     end,
@@ -298,13 +299,13 @@ require("lazy").setup(
                 ),
                 vim.keymap.set(
                     "n",
-                    "t[",
+                    "<leader>t[",
                     function()
                         require("todo-comments").jump_prev()
                     end,
                     {desc = "Previous [T]o-Do -> ["}
                 ),
-                vim.keymap.set("n", "ts", "TodoTelescope", {desc = "[T]o-Do [S]earch"})
+                vim.keymap.set("n", "<leader>ts", ":TodoTelescope<CR>", {desc = "[T]o-Do [S]earch"})
             }
         },
         {
