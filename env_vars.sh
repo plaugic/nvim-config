@@ -1,0 +1,1 @@
+export CHATGPT_API_KEY=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

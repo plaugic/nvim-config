@@ -287,29 +287,24 @@ require("lazy").setup(
             -- Rating 9/10
             "olimorris/onedarkpro.nvim",
             priority = 1000,
-            config = function()
-                require("onedarkpro").setup({
-                    options = {
-                        transparency = true -- this will enable transparency
-                    }
-                })
-                vim.cmd.colorscheme "onedark_dark"
-            end
         },
         --   
         --   
         -- PREFER THIS FONT FOR DARK MODE
-        -- { 
-        --     -- Rating 9.5/10
-        --     "nyoom-engineering/oxocarbon.nvim",
-        --     priority = 1000,
-        -- },
+        {
+            -- Rating 9.5/10
+            "nyoom-engineering/oxocarbon.nvim",
+            priority = 1000,
+        },
         --
         --
         -- { 
         --     -- Rating 9/10 [military/camo vibes with this one]
         --     "xero/miasma.nvim",
         --     priority = 1000,
+        --     config = function()
+        --         vim.cmd.colorscheme "miasma"
+        --     end
         -- },
         --
         --
@@ -320,7 +315,7 @@ require("lazy").setup(
             opts = {
                 options = {
                     icons_enabled = true,
-                    theme = "onedark",
+                    theme = "gruvbox",
                     component_separators = "::",
                     section_separators = ""
                 }
@@ -535,3 +530,29 @@ require('plugins.which-key')
 
 -- Load utility plugins configurations
 -- require('plugins.utility-plugins')
+
+-- Add more plugin configuration files as needed
+
+local function set_colorscheme_based_on_system()
+    local script_path = "~/CheckDarkMode.scpt"
+    local system_theme = vim.fn.system("osascript " .. script_path)
+    if system_theme:find("true") then
+        vim.cmd("set background=dark")
+        vim.cmd("colorscheme oxocarbon")
+    else
+        vim.cmd("set background=light")
+        vim.cmd("colorscheme onelight")
+    end
+end
+
+theme_timer = nil
+
+local function timer_function()
+    theme_timer = vim.loop.new_timer()
+    theme_timer:start(0, 1000, vim.schedule_wrap(function()
+        set_colorscheme_based_on_system()
+    end))
+end
+
+set_colorscheme_based_on_system()
+timer_function()
